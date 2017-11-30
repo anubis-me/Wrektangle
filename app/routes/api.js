@@ -72,19 +72,6 @@ module.exports = function(router){
                     } else {
                         res.json({success: true, message: "User successfully authenticated"});
                     }
-                    /*truck.comparePassword(password, function(err, isMatch){
-                        if (err){
-                            console.log(err);
-                            res.json({success: false, message: "Error occured while authenticating the user"});
-                        } else {
-                            if (!isMatch){
-                                console.log("Wrong password entered by " + truck.driverName);
-                                res.json({success: false, message: "Wrong password entered"});
-                            } else {
-                                res.json({success: true, message: "User successfully authenticated"});
-                            }
-                        }
-                    });*/
                 }
             }
         });
