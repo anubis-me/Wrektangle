@@ -82,7 +82,8 @@ var truckSchema = new Schema({
     },
     aadharNum:{
         type:String,
-        validator: aadharValidator
+        validator: aadharValidator,
+        unique: true
         //required: true
     },
     mobileNum:{
