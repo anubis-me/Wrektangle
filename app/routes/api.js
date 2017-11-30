@@ -24,22 +24,30 @@ module.exports = function(router){
             password: password
         });
 
-        newTruck.save(function(err, truck){
+        /*
+
+       240 anand bagh society dushan road
+         */
+
+        newTruck.save(function(err){
             if (err){
                 if (err.errors !== null){
                     console.log(err);
                     res.json({success: false, message:"Error while registering the user"});
                 } else if (err) {
-                    if (err.code == 11000)
+                    if (err.code == 11000){
                         console.log(err.errorMsg);
+                        if (err.errorMsg[57] == 'E'){
+                            res.json({success: false, message: "A user with the following details already exists"});
+                        }
+                    }
                 }
             } else {
-                if (truck){
-                    res.json({success: true, message: "Registered successfully"});
-                }
+                res.json({success: true, message: "Registered successfully"});
             }
         });
     });
+
 
     return router;
 };
