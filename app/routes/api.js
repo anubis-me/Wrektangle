@@ -5,6 +5,7 @@ var jwt = require('jsonwebtoken'); // Import JWT Package
 var secret = 'harrythepotter'; // Create custom secret for use in JWT
 var nodemailer = require('nodemailer'); // Import Nodemailer Package
 var Truck = require('../models/truck');
+var bcrypt = require('bcrypt');
 
 module.exports = function(router){
     router.post('/register', function(req, res){
@@ -26,8 +27,9 @@ module.exports = function(router){
 
         /*
 
-       240 anand bagh society dushan road
-         */
+            240 anand bagh society dushan road
+
+        */
 
         newTruck.save(function(err){
             if (err){
@@ -39,6 +41,8 @@ module.exports = function(router){
                         console.log(err.errorMsg);
                         if (err.errorMsg[57] == 'E'){
                             res.json({success: false, message: "A user with the following details already exists"});
+                        } else {
+                            res.json({success: false, message: "A user with the following details already exists"});
                         }
                     }
                 }
@@ -48,6 +52,43 @@ module.exports = function(router){
         });
     });
 
+    router.post('/authenticate', function(req, res){
+        var email = req.body.driveremail;
+        var password = req.body.password;
+
+        Truck.findOne({driverEmail: email}, function(err, truck){
+            if (err){
+                console.log(err);
+                res.json({success: false, message: "Error occured while authenticating the user"});
+            } else {
+                if (!truck){
+                    console.log(err);
+                    res.json({success: false, message: "No such user exists"});
+                } else {
+                    var passMatch = bcrypt.compareSync(password, truck.password);
+                    if (!passMatch){
+                        console.log("Wrong password entered by " + truck.driverName);
+                        res.json({success: false, message: "Wrong password entered"});
+                    } else {
+                        res.json({success: true, message: "User successfully authenticated"});
+                    }
+                    /*truck.comparePassword(password, function(err, isMatch){
+                        if (err){
+                            console.log(err);
+                            res.json({success: false, message: "Error occured while authenticating the user"});
+                        } else {
+                            if (!isMatch){
+                                console.log("Wrong password entered by " + truck.driverName);
+                                res.json({success: false, message: "Wrong password entered"});
+                            } else {
+                                res.json({success: true, message: "User successfully authenticated"});
+                            }
+                        }
+                    });*/
+                }
+            }
+        });
+    });
 
     return router;
 };

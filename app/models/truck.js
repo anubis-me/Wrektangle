@@ -101,7 +101,7 @@ var truckSchema = new Schema({
 truckSchema.pre('save', function(callback){
     var truck = this;
     bcrypt.genSalt(10, function(err, salt){
-        if (err){
+        if (err) {
             callback(err);
         } else {
             bcrypt.hash(truck.password, salt, function(err, hash){
@@ -109,7 +109,6 @@ truckSchema.pre('save', function(callback){
                     callback(err);
                 } else {
                     truck.password = hash;
-                    //truck.aadharNum = truck.aadharNum.trim();
                     callback();
                 }
             });
@@ -117,17 +116,9 @@ truckSchema.pre('save', function(callback){
     });
 });
 
-//Function for comparing a normal text with a hashed password
-
-truckSchema.comparePassword = function(password, callback){
+truckSchema.methods.findDriverByEmail = function(email, callback){
     var truck = this;
-    bcrypt.compare(password, truck.password, function(err, isMatch){
-        if (err){
-            callback(err);
-        } else {
-            callback(null, isMatch);
-        }
-    });
+    truck.findOne({driverEmail: email}, callback);
 };
 
 //Exporting the schema model
