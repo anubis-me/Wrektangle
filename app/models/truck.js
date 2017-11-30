@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose'); // Import Mongoose Package
 var Schema   = mongoose.Schema; // Assign Mongoose Schema function to variable
-var bcrypt   = require('bcrypt-nodejs'); // Import Bcrypt Package
+var bcrypt   = require('bcrypt'); // Import Bcrypt Package
 var titlize  = require('mongoose-title-case'); // Import Mongoose Title Case Plugin
 var validate = require('mongoose-validator'); // Import Mongoose Validator Plugin
 
@@ -22,9 +22,13 @@ var driverNameValidator = [
     })
 ];
 
+//Validator for validating the E-mail of the driver
+
 var driverEmailValidator = [
     validate({
-        validator: 'matches'
+        validator: 'matches',
+        arguments: '/^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/',
+        message: 'Please enter a valid E-mail ID'
     })
 ];
 //Validator for validating the aadhar number
@@ -33,11 +37,6 @@ var aadharValidator = [
     validate({
         validator: 'matches',
         arguments: '^\d{4}\d{4}\d{4}$',
-        message: 'Please enter a valid Aadhar Number'
-    }),
-    validate({
-        validator: 'matches',
-        arguments: '^\d{4}\s\d{4}\s\d{4}$',
         message: 'Please enter a valid Aadhar Number'
     })
 ];
@@ -67,27 +66,29 @@ var passwordValidator = [
 var truckSchema = new Schema({
     driverName:{
         type:String,
-        validator: driverNameValidator,
-        required: true
+        validator: driverNameValidator
+        //required: true
     },
     driverEmail:{
         type: String,
-        validator:
-    }
+        validator: driverEmailValidator,
+        //required: true
+        unique: true
+    },
     truckNum:{
         type: Number,
-        required: true,
+        //required: true
         unique:true
     },
     aadharNum:{
         type:String,
-        validator: aadharValidator,
-        required: true
+        validator: aadharValidator
+        //required: true
     },
     mobileNum:{
         type: String,
-        validator: mobNumValidator,
-        required: true
+        validator: mobNumValidator
+        //required: true
     },
     password:{
         type: String,
@@ -107,7 +108,7 @@ truckSchema.pre('save', function(callback){
                     callback(err);
                 } else {
                     truck.password = hash;
-                    truck.password = truck.password.trim();
+                    //truck.aadharNum = truck.aadharNum.trim();
                     callback();
                 }
             });
@@ -129,5 +130,5 @@ truckSchema.comparePassword = function(password, callback){
 };
 
 //Exporting the schema model
-module.exports = mongoose.model('Truck', truckSchema, trucks);
+module.exports = mongoose.model('Truck', truckSchema);
 
