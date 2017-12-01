@@ -19,9 +19,9 @@
     <script src="app/routes.js"></script>
 
     <!-- Angular Controllers -->
-    <script src="app/controllers/userCtrl.js"></script>
-    <script src="app/controllers/mainCtrl.js"></script>
-    <script src="app/controllers/emailCtrl.js"></script>
+    <script src="app/controller/userCtrl.js"></script>
+    <script src="app/controller/mainCtrl.js"></script>
+    <script src="app/controller/emailCtrl.js"></script>
 
 
     <!-- Angular Services -->
@@ -39,7 +39,7 @@
 
 </head>
 
-<body ng-app="truckApp" ng-controller="mainCtrl as main" >
+<body ng-app="truckApp" >
 
 <nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
     <div class="container">
@@ -64,7 +64,7 @@
                     <a class="page-scroll" href="/">Home</a>
                 </li>
                 <li class="">
-                    <a ng-show="!main.isLoggedIn" class="page-scroll" href="/login">Login</a>
+                    <a class="page-scroll" href="/login">Login</a>
                 </li>
                 <li class="">
                     <a class="page-scroll" href="/register">Register</a>
@@ -74,7 +74,7 @@
                 </li>
 
                 <li class="">
-                    <a  class="page-scroll" href="/profile">Hello {{ main.username }}</a>
+                    <a  class="page-scroll" href="/profile">Profile</a>
                 </li>
             </ul>
         </div>
@@ -98,7 +98,7 @@
 
 
 <script src="assets/js/jquery-3.1.1.min.js"></script>
-  <script src="assets/js/bootstrap.js"></script>
+<script src="assets/js/bootstrap.js"></script>
 </body>
 
 </html>

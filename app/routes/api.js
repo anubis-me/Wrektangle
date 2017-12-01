@@ -9,11 +9,11 @@ var bcrypt = require('bcrypt');
 
 module.exports = function(router){
     router.post('/register', function(req, res){
-        var driverName = req.body.drivername;
-        var driverEmail = req.body.driveremail;
-        var truckNum = req.body.trucknum;
-        var aadharNum = req.body.aadharnum;
-        var mobileNum = req.body.mobilenum;
+        var driverName = req.body.name;
+        var driverEmail = req.body.email;
+        var truckNum = req.body.truckno;
+        var aadharNum = req.body.aadharno;
+        var mobileNum = req.body.mobno;
         var password = req.body.password;
 
         var newTruck = new Truck({
@@ -53,7 +53,7 @@ module.exports = function(router){
     });
 
     router.post('/authenticate', function(req, res){
-        var email = req.body.driveremail;
+        var email = req.body.email;
         var password = req.body.password;
 
         Truck.findOne({driverEmail: email}, function(err, truck){

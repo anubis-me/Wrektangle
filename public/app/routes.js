@@ -28,43 +28,12 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
             // Route: User Login
             .when('/login', {
-                templateUrl: 'app/views/pages/driver/login.html'
+                templateUrl: 'app/views/pages/driver/login.html',
+                controller: 'mainCtrl',
+                controllerAs: 'main'
             })
 
-            // Route: Activate Account Through E-mail
-            .when('/activate/:token', {
-                templateUrl: 'app/views/pages/driver/activation/activate.html',
-                controller: 'emailCtrl',
-                controllerAs: 'email'
-            })
 
-            // Route: Request New Activation Link
-            .when('/resend', {
-                templateUrl: 'app/views/pages/driver/activation/resend.html',
-                controller: 'resendCtrl',
-                controllerAs: 'resend'
-            })
-
-            // Route: Send Username to E-mail
-            .when('/resetusername', {
-                templateUrl: 'app/views/pages/driver/reset/username.html',
-                controller: 'usernameCtrl',
-                controllerAs: 'username'
-            })
-
-            // Route: Send Password Reset Link to User's E-mail
-            .when('/resetpassword', {
-                templateUrl: 'app/views/pages/driver/reset/password.html',
-                controller: 'passwordCtrl',
-                controllerAs: 'password'
-            })
-
-            // Route: User Enter New Password & Confirm
-            .when('/reset/:token', {
-                templateUrl: 'app/views/pages/driver/reset/newpassword.html',
-                controller: 'resetCtrl',
-                controllerAs: 'reset'
-            })
             // Route: User Profile
             .when('/profile', {
                 templateUrl: 'app/views/pages/driver/profile.html'
