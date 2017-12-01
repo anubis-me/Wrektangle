@@ -97,6 +97,10 @@ var truckSchema = new Schema({
     }
 });
 
+<<<<<<< HEAD
+=======
+//Before saving a truck object, the password will be hashed
+>>>>>>> 57daf25bc2b906c3f1a052a61658734afa0549b5
 truckSchema.pre('save', function(next) {
     var truck = this;
     bcrypt.hash(truck.password, null, null, function (err, hash) {
