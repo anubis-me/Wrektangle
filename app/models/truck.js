@@ -31,7 +31,7 @@ var driverEmailValidator = [
         message: 'Please enter a valid E-mail ID'
     })
 ];
-//Validator for validating the Aadhar number
+//Validator for validating the aadhar number
 
 var aadharValidator = [
     validate({
