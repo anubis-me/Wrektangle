@@ -97,25 +97,6 @@ var truckSchema = new Schema({
     }
 });
 
-//Before saving a truck object, the password will be hashed
-/*truckSchema.pre('save', function(){
-    var truck = this;
-    bcrypt.genSalt(10, function(err, salt){
-        if (err) {
-            callback(err);
-        } else {
-            bcrypt.hash(truck.password, salt, function(err, hash){
-                if (err) {
-                    callback(err);
-                } else {
-                    truck.password = hash;
-                    callback();
-                }
-            });
-        }
-    });
-});*/
-
 truckSchema.pre('save', function(next) {
     var truck = this;
     bcrypt.hash(truck.password, null, null, function (err, hash) {
