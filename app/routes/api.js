@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken'); // Import JWT Package
 var secret = 'harrythepotter'; // Create custom secret for use in JWT
 var nodemailer = require('nodemailer'); // Import Nodemailer Package
 var Truck = require('../models/truck');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(router){
     router.post('/register', function(req, res){
@@ -24,12 +24,6 @@ module.exports = function(router){
             mobileNum: mobileNum,
             password: password
         });
-
-        /*
-
-            240 anand bagh society dushan road
-
-        */
 
         newTruck.save(function(err){
             if (err){

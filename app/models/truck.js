@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose'); // Import Mongoose Package
 var Schema   = mongoose.Schema; // Assign Mongoose Schema function to variable
-var bcrypt   = require('bcrypt'); // Import Bcrypt Package
+var bcrypt   = require('bcrypt-nodejs'); // Import Bcrypt Package
 var titlize  = require('mongoose-title-case'); // Import Mongoose Title Case Plugin
 var validate = require('mongoose-validator'); // Import Mongoose Validator Plugin
 
@@ -98,7 +98,7 @@ var truckSchema = new Schema({
 });
 
 //Before saving a truck object, the password will be hashed
-truckSchema.pre('save', function(callback){
+/*truckSchema.pre('save', function(){
     var truck = this;
     bcrypt.genSalt(10, function(err, salt){
         if (err) {
@@ -113,6 +113,17 @@ truckSchema.pre('save', function(callback){
                 }
             });
         }
+    });
+});*/
+
+truckSchema.pre('save', function(next) {
+    var truck = this;
+    bcrypt.hash(truck.password, null, null, function (err, hash) {
+        if (err)
+            return next(err);
+        truck.password=hash;
+        next();
+
     });
 });
 
